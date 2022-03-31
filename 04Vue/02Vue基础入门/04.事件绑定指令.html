@@ -10,7 +10,8 @@
     <!-- 希望Vue能够控制下面的这个div，把数据填充到div内部 -->
     <div id="app">
         <p>count的值是：{{ count }}</p>
-        <button v-on:click="add">+1</button>
+        <!-- 在绑定事件处理函数的时候，可以使用（）传递参数 -->
+        <button v-on:click="add(2)">+2</button>
         <button v-on:click="sub">-1</button>
     </div>
 
@@ -28,9 +29,9 @@
             },
             // methods的作用，就是定义事件的处理函数
             methods: {
-                add() {
+                add(n) {
                     console.log(vm===this);
-                    this.count += 1;
+                    this.count += n;
                 },
                 sub() {
                     console.log('sub')
