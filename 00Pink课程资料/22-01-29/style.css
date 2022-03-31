@@ -1,0 +1,5 @@
+/* 这css文件里面只有样式没有标签 */
+div {
+    color:  pink;
+    font-family: '黑体', '宋体', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
