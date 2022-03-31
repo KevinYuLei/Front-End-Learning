@@ -10,7 +10,8 @@
     <!-- 希望Vue能够控制下面的这个div，把数据填充到div内部 -->
     <div id="app">
         <p>count的值是：{{ count }}</p>
-        <button>+1</button>
+        <button v-on:click="add">+1</button>
+        <button v-on:click="sub">-1</button>
     </div>
 
     <!-- 1. 导入Vue的库文件，在windows全局就有了Vue这个构造函数 -->
@@ -24,6 +25,15 @@
             // data 对象就是要渲染到页面上的数据
             data: {
                 count: 0,
+            },
+            // methods的作用，就是定义事件的处理函数
+            methods: {
+                add() {
+                    console.log('add');
+                },
+                sub() {
+                    console.log('sub')
+                }
             }
         })
     </script>
