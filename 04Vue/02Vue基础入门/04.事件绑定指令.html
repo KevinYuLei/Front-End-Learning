@@ -29,7 +29,8 @@
             // methods的作用，就是定义事件的处理函数
             methods: {
                 add() {
-                    console.log('add');
+                    console.log(vm===this);
+                    this.count += 1;
                 },
                 sub() {
                     console.log('sub')
