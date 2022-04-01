@@ -214,7 +214,9 @@ vue 提供的<span class="redFont">{{}}</span>语法，专门用来解决 v-text
 - vue 规定：`v-bind:属性`指令可以简写为`:属性`
 - 简写是英文的:
 - 在使用 v-bind 属性绑定期间，如果绑定的内容需要进行动态拼接，则字符串的外面应该包裹单引号。例如：
-  `<div :title="'box'+index">这是一个div</div>`
+  ```html
+  <div :title="'box'+index">这是一个div</div>
+  ```
 
 <strong>使用 JavaScript 表达式</strong>
 
@@ -232,9 +234,24 @@ vue 提供的<span class="redFont">{{}}</span>语法，专门用来解决 v-text
 vue 提供了<span class="redFont">v-on 事件绑定</span>绑定指令，用来辅助程序员为 DOM 元素绑定事件监听。语法格式如下：
 
 ```html
-<h3>count的值为 {{count}}</h3>
+<div id="app">
+  <h3>count的值为: {{count}}</h3>
+</div>
 <!-- 语法格式为 v-on:事件名称="事件处理函数的名称" -->
 <button v-on:click="addCount">+1</button>
+<script>
+  const vm = new Vue({
+    el: "#app",
+    data: {
+      count: 0,
+    },
+    methods: {
+      addCount() {
+        this.count += 1;
+      },
+    },
+  });
+</script>
 ```
 
 注意：原生 DOM 对象有 onclick、oninput、onkeyup 等原生事件，替换为 vue 的事件绑定形式后，分别为：
@@ -242,9 +259,128 @@ v-on:click、
 v-on:input、
 v-on:keyup
 
-<strong>1. 事件对象\$event</strong>
-vue 提供了内置变量：$event，它就是原生 DOM 的事件对象 e。
+<h5>1. 事件对象 \$event</h5>
+vue 提供了内置变量： `$event` ，它就是原生 DOM 的事件对象 e。
+
+应用场景：如果默认的事件对象 e 被覆盖了，则可以收哦的那个传递一个 `$event`
 
 ```js
 e.target; //可以访问事件源元素
+```
+
+<h5>2. 事件修饰符</h5>
+
+在事件处理函数中调用<span class="redFont">event.preventDefault()</span>或者<span class="redFont">event.stopPropagation()</span>是非常常见的需求。因此，vue 提供了<span class="redFont">事件修饰符</span>，来辅助程序员更方便的<span class="redFont">对事件的触发进行控制</span>。常用的 5 个事件修饰符如下：
+
+ <table>
+    <thead>
+        <tr>
+            <th>事件修饰符</th>
+            <th>说明</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>.prevent</td>
+            <td>阻止默认行为（例如：阻止a链接的跳转、阻止表单的提交等）</td>
+        </tr>
+        <tr>
+            <td>.stop</td>
+            <td>阻止事件冒泡</td>
+        </tr>
+        <tr>
+            <td>.capture</td>
+            <td>以捕获模式触发当前的事件处理函数</td>
+        </tr>
+        <tr>
+            <td>.once</td>
+            <td>绑定的事件只触发一次</td>
+        </tr>
+        <tr>
+            <td>.self</td>
+            <td>只有在event.target是当前</td>
+        </tr>
+    </tbody>
+</table>
+
+<strong>阻止默认行为：</strong>
+
+写法 1：默认事件处理函数
+
+```html
+<a href="www.baidu.com" @click="show($event)">跳转到百度首页</a>
+```
+
+```js
+show(e) {
+  e.preventDefault();
+  console.log('show')
+}
+```
+
+写法 2：调用 vue 事件修饰符
+
+```html
+<a href="www.baidu.com" @click.prevent="show">跳转到百度首页</a>
+```
+
+```js
+show() {
+  console.log('show')
+}
+```
+
+<strong>阻止事件冒泡：</strong>
+
+写法 1：默认事件处理函数
+
+```html
+<div
+  style="height: 150px; background-color: orange; padding-left: 50px; line-height: 150px;"
+  @click="divHandler"
+>
+  <button @click="btnHandler">按钮</button>
+</div>
+```
+
+```js
+btnHandler(e) {
+    e.stopPropagation();
+    console.log('btnHandler');
+},
+divHandler() {
+    console.log('divHandler');
+}
+```
+
+写法 2：调用 vue 事件修饰符
+
+```html
+<div
+  style="height: 150px; background-color: orange; padding-left: 50px; line-height: 150px;"
+  @click="divHandler"
+>
+  <button @click.stop="btnHandler">按钮</button>
+</div>
+```
+
+```js
+btnHandler() {
+    console.log('btnHandler');
+},
+divHandler() {
+    console.log('divHandler');
+}
+```
+
+<h5>3. 按键修饰符</h5>
+
+在<span class="redFont">监听键盘事件</span>时，我们经常需要判断详细的按键。此时，可以为键盘相关的事件添加<span class="redFont">按键修饰符</span>。例如：
+
+```html
+<!-- 只有在'key' 是 'Enter'时 调用 'vm.submit()' -->
+<input @keyup.enter="submit" />
+
+<!-- 只有在'key' 是 'esc'时调用 'vm.clearInput()' -->
+<input @keyup.esc="clearInput" />
 ```

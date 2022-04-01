@@ -8,7 +8,17 @@
 </head>
 <body>
     <!-- 希望Vue能够控制下面的这个div，把数据填充到div内部 -->
-    <div id="app">{{ username }}</div>
+    <div id="app">
+        <a href="http://www.baidu.com" @click="show">跳转到百度首页</a>
+        <hr>
+        <div style="height: 150px; background-color: orange; padding-left: 50px; line-height: 150px;" @click="divHandler">
+            <button @click="btnHandler">按钮</button>
+        </div>
+        <hr>
+        <div style="height: 150px; background-color: skyblue; padding-left: 50px; line-height: 150px;" @click="divHandler">
+            <button @click.stop="btnHandler2">按钮</button>
+        </div>
+    </div>
 
     <!-- 1. 导入Vue的库文件，在windows全局就有了Vue这个构造函数 -->
     <script src="lib/vue.js"></script>
@@ -20,8 +30,23 @@
             el: '#app',
             // data 对象就是要渲染到页面上的数据
             data: {
-                username: 'ZhangSan'
-            }
+            },
+            methods: {
+                show(e) {
+                    e.preventDefault();
+                    console.log('show');
+                },
+                btnHandler(e) {
+                    e.stopPropagation();
+                    console.log('btnHandler');
+                },
+                btnHandler2() {
+                    console.log('btnHandler');
+                },
+                divHandler() {
+                    console.log('divHandler');
+                }
+            },
         })
     </script>
 </body>
