@@ -384,3 +384,20 @@ divHandler() {
 <!-- 只有在'key' 是 'esc'时调用 'vm.clearInput()' -->
 <input @keyup.esc="clearInput" />
 ```
+
+<h4>4.1.4 双向绑定指令</h4>
+
+vue 提供了<span class="redFont">v-model 数据绑定</span>指令，用来辅助开发者在不操作 DOM 的前提下，<span class="redFont">快速获取表单的数据</span>
+
+```html
+<p>用户名是: {{username}}</p>
+<input type="text" v-model="username" />
+
+<p>选中的省份是: {{province}}</p>
+<select v-model="province">
+  <option value="">请选择</option>
+  <option value="1">北京</option>
+  <option value="2">河北</option>
+  <option value="3">黑龙江</option>
+</select>
+```

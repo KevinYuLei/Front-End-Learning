@@ -9,7 +9,7 @@
 <body>
     <!-- 希望Vue能够控制下面的这个div，把数据填充到div内部 -->
     <div id="app">
-        <input type="text" @keyup.esc="clearInput">
+        <input type="text" @keyup.esc="clearInput" @keyup.enter="commitAjax">
     </div>
 
     <!-- 1. 导入Vue的库文件，在windows全局就有了Vue这个构造函数 -->
@@ -24,9 +24,13 @@
             data: {
             },
             methods: {
-                clearInput() {
+                clearInput(e) {
                     console.log('clearInput');
-                }
+                    e.target.value='';
+                },
+                commitAjax() {
+                    console.log('commitAjax');
+                },
             },
         })
     </script>
