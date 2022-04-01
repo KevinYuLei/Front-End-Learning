@@ -9,11 +9,10 @@
 <body>
     <!-- 希望Vue能够控制下面的这个div，把数据填充到div内部 -->
     <div id="app">
-        <p>count的值是：{{ count }}</p>
-        <!-- 在绑定事件处理函数的时候，可以使用（）传递参数 -->
-        <!-- v-on: 指令可以被简写为 @ -->
-        <button v-on:click="add(2)">+2</button>
-        <button @click="sub">-1</button>
+        <p>count的值是：{{count}}</p>
+        <!-- 如果count是偶数，则按钮背景变成红色，否则取消背景颜色 -->
+        <!-- vue提供了内置变量，名字叫做$event，它就是原生DOM的事件对象e -->
+        <button @click="add(1, $event)">+N</Nav></button>
     </div>
 
     <!-- 1. 导入Vue的库文件，在windows全局就有了Vue这个构造函数 -->
@@ -28,16 +27,21 @@
             data: {
                 count: 0,
             },
-            // methods的作用，就是定义事件的处理函数
             methods: {
-                add(n) {
-                    console.log(vm===this);
-                    this.count += n;
-                },
-                sub() {
-                    console.log('sub')
+                add(n, e) {
+                    this.count+=n;
+                    // 判断this.count的值是否为偶数
+                    console.log(e);
+                    if(this.count%2===0) {
+                        //偶数
+                        e.target.style.backgroundColor='red';
+                    }
+                    else {
+                        // 奇数
+                        e.target.style.backgroundColor='';
+                    }
                 }
-            }
+            },
         })
     </script>
 </body>

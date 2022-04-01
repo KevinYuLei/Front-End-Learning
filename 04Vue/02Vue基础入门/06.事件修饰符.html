@@ -8,13 +8,7 @@
 </head>
 <body>
     <!-- 希望Vue能够控制下面的这个div，把数据填充到div内部 -->
-    <div id="app">
-        <p>count的值是：{{ count }}</p>
-        <!-- 在绑定事件处理函数的时候，可以使用（）传递参数 -->
-        <!-- v-on: 指令可以被简写为 @ -->
-        <button v-on:click="add(2)">+2</button>
-        <button @click="sub">-1</button>
-    </div>
+    <div id="app">{{ username }}</div>
 
     <!-- 1. 导入Vue的库文件，在windows全局就有了Vue这个构造函数 -->
     <script src="lib/vue.js"></script>
@@ -26,17 +20,7 @@
             el: '#app',
             // data 对象就是要渲染到页面上的数据
             data: {
-                count: 0,
-            },
-            // methods的作用，就是定义事件的处理函数
-            methods: {
-                add(n) {
-                    console.log(vm===this);
-                    this.count += n;
-                },
-                sub() {
-                    console.log('sub')
-                }
+                username: 'ZhangSan'
             }
         })
     </script>

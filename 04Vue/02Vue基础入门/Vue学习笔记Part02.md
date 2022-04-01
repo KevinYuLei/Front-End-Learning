@@ -237,5 +237,14 @@ vue 提供了<span class="redFont">v-on 事件绑定</span>绑定指令，用来
 <button v-on:click="addCount">+1</button>
 ```
 
-111
-123
+注意：原生 DOM 对象有 onclick、oninput、onkeyup 等原生事件，替换为 vue 的事件绑定形式后，分别为：
+v-on:click、
+v-on:input、
+v-on:keyup
+
+<strong>1. 事件对象\$event</strong>
+vue 提供了内置变量：$event，它就是原生 DOM 的事件对象 e。
+
+```js
+e.target; //可以访问事件源元素
+```
