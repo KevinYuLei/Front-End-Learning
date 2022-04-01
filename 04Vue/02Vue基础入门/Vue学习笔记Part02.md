@@ -389,6 +389,15 @@ divHandler() {
 
 vue 提供了<span class="redFont">v-model 数据绑定</span>指令，用来辅助开发者在不操作 DOM 的前提下，<span class="redFont">快速获取表单的数据</span>
 
+可以使用 v-model 指令的元素：
+
+1. input 输入框
+   - type="radio"
+   - type="checkbox"
+   - type=...
+2. textarea
+3. select
+
 ```html
 <p>用户名是: {{username}}</p>
 <input type="text" v-model="username" />
